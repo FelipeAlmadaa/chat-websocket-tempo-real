@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Chat bidirecional em tempo real desenvolvido com WebSocket." />
+    <meta name="theme-color" content="#10131a" />
+    <title>Pulse Chat — WebSocket</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%236c5ce7'/%3E%3Cpath d='M16 19h32v22H31l-10 8v-8h-5z' fill='white'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">P</span>
+          <div>
+            <strong>Pulse Chat</strong>
+            <span>WebSocket em tempo real</span>
+          </div>
+        </div>
+
+        <section class="presence" aria-labelledby="online-title">
+          <div class="section-heading">
+            <h2 id="online-title">Online agora</h2>
+            <span id="online-count" class="count">0</span>
+          </div>
+          <ul id="user-list" class="user-list"></ul>
+        </section>
+
+        <div class="connection-row">
+          <span id="connection-dot" class="connection-dot"></span>
+          <span id="connection-label">Conectando…</span>
+        </div>
+      </aside>
+
+      <section class="chat-panel" aria-label="Sala de conversa">
+        <header class="chat-header">
+          <div>
+            <p class="eyebrow">SALA GERAL</p>
+            <h1>Conversa da equipe</h1>
+          </div>
+          <div class="live-badge"><span></span> AO VIVO</div>
+        </header>
+
+        <ol id="message-list" class="message-list" aria-live="polite" aria-relevant="additions">
+          <li class="welcome-card">
+            <span class="welcome-icon" aria-hidden="true">↯</span>
+            <div>
+              <strong>Canal conectado</strong>
+              <p>As mensagens aparecem instantaneamente para todas as pessoas na sala.</p>
+            </div>
+          </li>
+        </ol>
+
+        <div id="typing-status" class="typing-status" aria-live="polite"></div>
+
+        <form id="message-form" class="message-form">
+          <label class="sr-only" for="message-input">Mensagem</label>
+          <input id="message-input" maxlength="500" autocomplete="off" placeholder="Escreva uma mensagem…" disabled />
+          <button id="send-button" type="submit" disabled aria-label="Enviar mensagem">
+            <span>Enviar</span><span aria-hidden="true">➜</span>
+          </button>
+        </form>
+      </section>
+    </main>
+
+    <dialog id="join-dialog" class="join-dialog">
+      <form id="join-form" method="dialog">
+        <span class="dialog-mark" aria-hidden="true">P</span>
+        <p class="eyebrow">BEM-VINDO</p>
+        <h2>Entre na conversa</h2>
+        <p>Escolha como você aparecerá para as outras pessoas.</p>
+        <label for="name-input">Seu nome</label>
+        <input id="name-input" maxlength="24" autocomplete="name" placeholder="Ex.: Felipe" autofocus required />
+        <p id="join-error" class="form-error" role="alert"></p>
+        <button type="submit">Entrar na sala</button>
+      </form>
+    </dialog>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client.js" defer></script>
+  </body>
+</html>
